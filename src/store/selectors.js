@@ -1,5 +1,5 @@
-import { CurrencyList } from '@/util/CurrencyList'
+export const getSetting = store => store.setting
 
-export const getCurrenciesOptions = store => CurrencyList.filter(currency => store.currencies.indexOf(currency.id) === -1)
+export const getImage = store => store.imageInfo
 
-export const getCurrencyLabel = store => store.currencyLabel
+export const getImageVersion = store => store.imageVersion

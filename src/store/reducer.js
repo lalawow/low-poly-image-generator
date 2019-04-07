@@ -1,12 +1,13 @@
 import * as ActionTypes from './actionTypes.js';
 
 export default (state, action) => {
-  const { currencies } = action;
+  const { data } = action;
 
   switch (action.type) {
-    case ActionTypes.SET_CURRENCY:
-      console.log("set currency", state, action)
-      return { ...state, currencies: currencies, currencyLabel: new Date() };
+    case ActionTypes.SET_SETTING:
+      return { ...state, setting: data };
+    case ActionTypes.UPLOAD_IMAGE:
+      return { ...state, imageInfo: data, imageVersion: new Date() };
     default:
       return state
   }

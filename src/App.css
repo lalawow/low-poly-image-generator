@@ -1,33 +1,65 @@
+@import '~antd/dist/antd.css';
 .App {
-  text-align: center;
+    text-align: center;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
+.fullpage {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.app-top {
+    font-size: 1.5rem;
+    font-family: proxima-soft, Proxima Nova, Open Sans, Gill Sans MT, Gill Sans, Corbel, Arial, sans-serif;
+    color: #333;
+    display: flex;
+    justify-content: space-between;
 }
 
-.App-link {
-  color: #61dafb;
+.app-top-menu {
+    font-size: 1.2rem;
+    margin: 0 10rem;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.app-top-menu a {
+    color: #333;
+}
+
+.setting-item {
+    padding: 0.5rem;
+}
+
+.app-header {
+    background: linear-gradient(270deg, #d53e4f, #fc8d59, #fee08b, #e6f598, #99d594, #3288bd) 0 100% repeat-x;
+    background-size: 100% 1px;
+    background-color: #fff;
+    box-shadow: 0 2px 6px 0 rgba(0, 0, 0, .05);
+    z-index: 99;
+}
+
+.app-left {
+    box-shadow: 2px 0 8px 0 rgba(0, 0, 0, .15);
+    z-index: 2;
+    height: 100%;
+}
+
+.app-main {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+}
+
+#image-canvas {
+    flex-grow: 0;
+    align-self: center;
+    box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, .15);
+    z-index: 90;
+}
+
+.export-btn {
+    align-self: center;
+    margin: 2rem;
 }
