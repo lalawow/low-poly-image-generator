@@ -4,11 +4,11 @@ This project will help you generate a low-poly triangulated image from any sourc
 
 Project [website](http://low-poly.coolvr.tech)
 
-![](https://low-poly.coolvr.tech/images/demo.png)
+![](http://low-poly.coolvr.tech/images/demo.png)
 
 
 ## Thanks to the next guys
----
+
 ### This project is inspired by:
 * Web page design: [Trianglify.io](https://trianglify.io)
 * image triangulation setting: [snorpey's image triangulation demo](https://snorpey.github.io/triangulation/)
