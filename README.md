@@ -5,7 +5,7 @@ This project will help you generate a low-poly triangulated image from any sourc
 Project [website](http://low-poly.coolvr.tech)
 
 ![](http://low-poly.coolvr.tech/images/demo.png)
-
+([Original Photo](https://unsplash.com/photos/ayrGaxXWQmg) by [Landovan](https://unsplash.com/@landovan) on Unsplash)
 
 ## Thanks to the next guys
 

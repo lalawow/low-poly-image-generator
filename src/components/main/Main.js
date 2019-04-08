@@ -29,7 +29,13 @@ const getColor = (ctx, triangle) => {
     const color = ctx.getImageData(parseInt(point.x), parseInt(point.y), 1, 1).data;
     return color
 }
-const drawTriangles = (ctx, triangles, points, width, height) => {
+
+const getGrayscale = (color) => {
+    //console.log(color)
+    let newColor = parseInt((color[0] * 299 + color[1] * 587 + color[2] * 114 + 500) / 1000)
+    return [newColor, newColor, newColor, color[3]]
+}
+const drawTriangles = (ctx, triangles, points, width, height, grayscale) => {
     const n = triangles.length / 3
     for (let i = 0; i < n; i++) {
         const triangle = [points[triangles[i * 3]], points[triangles[i * 3 + 1]], points[triangles[i * 3 + 2]]]
@@ -37,9 +43,31 @@ const drawTriangles = (ctx, triangles, points, width, height) => {
         ctx.moveTo(...triangle[0]);
         ctx.lineTo(...triangle[1]);
         ctx.lineTo(...triangle[2]);
-        const color = getColor(ctx, triangle)
-        ctx.fillStyle = 'rgb(' + color + ')';
+        ctx.lineTo(...triangle[0]);
+        let color = getColor(ctx, triangle)
+        ctx.fillStyle = 'rgb(' + (grayscale ? getGrayscale(color) : color) + ')';
         ctx.fill()
+    }
+    if (grayscale) {
+        fillGrayscale(ctx, width, height)
+    }
+}
+
+const fillGrayscale = (ctx, width, height) => {
+    const imageData = ctx.getImageData(0, 0, width, height).data
+    console.log(imageData.length)
+    for (let i = 0; i < height; i++) {
+        for (let j = 0; j < width; j++) {
+            const pointIndex = (i * width + j) * 4
+            if (imageData[pointIndex] === imageData[pointIndex + 1] && imageData[pointIndex + 2] !== imageData[pointIndex + 1]) {
+
+            } else {
+                let newColor = getGrayscale(imageData.slice(pointIndex, pointIndex + 4))
+                ctx.fillStyle = 'rgb(' + newColor + ')';
+                ctx.fillRect(j, i, 1, 1)
+
+            }
+        }
     }
 }
 
@@ -63,7 +91,7 @@ class Main extends Component {
             width: 800,
             height: 600
         }
-        this.image = null
+
 
     }
     componentWillMount() {
@@ -89,8 +117,7 @@ class Main extends Component {
         const sobelPoints = getSobelPoints(sobelImageData)
         let points = getRandomPoints(this.props.setting.points, this.props.setting.accuracy, sobelPoints, canvas.width, canvas.height)
         const delaunay = Delaunator.from(points);
-        drawTriangles(ctx, delaunay.triangles, points, canvas.width, canvas.height)
-        this.image = canvas.toDataURL("image/png");
+        drawTriangles(ctx, delaunay.triangles, points, canvas.width, canvas.height, this.props.setting.grayscale)
         setTimeout(this.download(), 500)
     }
 
