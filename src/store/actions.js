@@ -7,6 +7,14 @@ export const setSetting = (data) => {
   };
 };
 
+export const setMode = (data) => {
+  return {
+    type: ActionTypes.SET_MODE,
+    data: data
+  };
+};
+
+
 export const uploadImage = (imageInfo) => {
   return {
     type: ActionTypes.UPLOAD_IMAGE,

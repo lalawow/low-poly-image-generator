@@ -4,15 +4,24 @@ import reducer from './reducer.js';
 const initImage = "/images/bird-01.jpg"
 
 const initValues = {
-    setting: {
+    triangles: {
         accuracy: 75,
         points: 2000,
         grayscale: false
     },
+    poissons: {
+        space: 5,
+        size: 3,
+        filled: false,
+        stroke: true
+    },
+    mode: "triangles",
     imageInfo: initImage,
     imageVersion: new Date()
 };
 
-const store = createStore(reducer, initValues);
+const store = createStore(reducer, initValues,
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
 
 export default store;

@@ -1,7 +1,7 @@
 {
     "name": "low-poly-image-generator",
-    "version": "0.1.0",
-    "private": true,
+    "version": "0.2.0",
+    "private": false,
     "dependencies": {
         "@babel/core": "7.2.2",
         "@babel/plugin-transform-react-jsx": "^7.3.0",

@@ -1,83 +1,31 @@
 import React, { Component } from 'react'
+import { Tabs } from 'antd';
+import TriangleSetting from "@/components/left/TriangleSetting"
+import PoissonSetting from "@/components/left/PoissonSetting"
 import { connect } from "react-redux";
-import { setSetting, uploadImage } from "@/store/actions";
-import { Slider, Upload, Icon, message, Switch } from 'antd';
+import { setMode } from "@/store/actions";
 
-const Dragger = Upload.Dragger;
-
-
-
-
-
+const TabPane = Tabs.TabPane;
 class Left extends Component {
-  constructor(props) {
-    super(props)
-    this.data = { accuracy: 75, points: 2000, grayscale: false }
-  }
-  handleChange = (type, value) => {
-
-    //console.log(type, value)
-    this.data[type] = value
-    //console.log(this.data)
-    this.props.setSetting(Object.assign({}, this.data))
-
-
+  // constructor(props) {
+  //   super(props)
+  // }
+  handleChange = (key) => {
+    //console.log(key)
+    this.props.setMode({ mode: key })
   }
   render() {
-    const props = {
-      name: 'file',
-      multiple: false,
-      action: '',
-      beforeUpload: (file) => {
-        console.log("get file", file)
-        this.props.uploadImage(URL.createObjectURL(file))
-        return false
-      },
-      onChange(info) {
-        const status = info.file.status;
-        if (status !== 'uploading') {
-          console.log(info.file, info.fileList);
-        }
-        if (status === 'done') {
-          message.success(`${info.file.name} file uploaded successfully.`);
-        } else if (status === 'error') {
-          message.error(`${info.file.name} file upload failed.`);
-        }
-      },
-    };
-
     return (
       <div className="app-left">
-        <div className="setting-item">
-          <h4>Upload Your Image File</h4>
-          <Dragger {...props} accept="image/*">
-            <p className="ant-upload-drag-icon">
-              <Icon type="inbox" />
-            </p>
-            <p className="ant-upload-text">Click or drag file to this area to upload</p>
-
-          </Dragger>
-        </div>
-        <div className="setting-item">
-          <h4>Accuracy</h4>
-          <Slider defaultValue={this.data.accuracy} min={0} max={100} onChange={this.handleChange.bind(this, "accuracy")} onAfterChange={this.handleChange.bind(this, "accuracy")} />
-        </div>
-        <div className="setting-item">
-          <h4>Points</h4>
-          <Slider defaultValue={this.data.points} min={100} max={9000} onChange={this.handleChange.bind(this, "points")} onAfterChange={this.handleChange.bind(this, "points")} />
-        </div>
-        <div className="setting-item">
-          <h4>Grayscale Style</h4>
-          <Switch onChange={this.handleChange.bind(this, "grayscale")} />
-        </div>
+        <Tabs defaultActiveKey="triangles" onChange={this.handleChange}>
+          <TabPane tab="Triangles" key="triangles"><TriangleSetting></TriangleSetting></TabPane>
+          <TabPane tab="Poisson Dots" key="poissons"><PoissonSetting /></TabPane>
+        </Tabs>,
       </div>
     );
   }
 }
 
-
-
 export default connect(
-  null,
-  { setSetting, uploadImage }
-)(Left);
+  null, { setMode }
+)(Left)

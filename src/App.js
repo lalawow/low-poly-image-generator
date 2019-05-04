@@ -21,7 +21,7 @@ class App extends Component {
             <Top />
           </Header>
           <Layout>
-            <Sider width={400} style={{
+            <Sider width="300" style={{
               background: "#fff"
             }}>
               <Left />
