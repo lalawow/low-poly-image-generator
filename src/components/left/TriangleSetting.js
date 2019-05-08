@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from "react-redux";
-import { setSetting } from "@/store/actions";
+import { setSetting, renderControl } from "@/store/actions";
 import { getSetting } from "@/store/selectors";
 import { Slider, Switch } from 'antd';
 import UploadImage from "@/components/left/UploadImage"
@@ -14,6 +14,9 @@ class TriangleSetting extends Component {
         this.props.setSetting({ type, value })
     }
 
+    componentDidUpdate() {
+        this.props.renderControl(true)
+    }
     render() {
         //console.log(this.props.setSetting)
         return (
@@ -44,5 +47,5 @@ function mapStateToProps(state) {
 
 export default connect(
     mapStateToProps,
-    { setSetting }
+    { setSetting, renderControl }
 )(TriangleSetting);

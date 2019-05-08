@@ -12,6 +12,8 @@ export default (state, action) => {
       return { ...state, [state.mode]: setting };
     case ActionTypes.UPLOAD_IMAGE:
       return { ...state, imageInfo: data, imageVersion: new Date() };
+    case ActionTypes.RENDER_CONTROL:
+      return { ...state, render: data };
     default:
       return state
   }

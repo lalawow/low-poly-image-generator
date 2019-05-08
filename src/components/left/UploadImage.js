@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from "react-redux";
-import { uploadImage } from "@/store/actions";
+import { uploadImage, renderControl } from "@/store/actions";
 import { Upload, Icon, message } from 'antd';
 
 const Dragger = Upload.Dragger;
@@ -19,6 +19,7 @@ class UploadImage extends Component {
             beforeUpload: (file) => {
                 console.log("get file", file)
                 this.props.uploadImage(URL.createObjectURL(file))
+                this.props.renderControl(true)
                 return false
             },
             onChange(info) {
@@ -50,5 +51,5 @@ class UploadImage extends Component {
 
 export default connect(
     null,
-    { uploadImage }
+    { uploadImage, renderControl }
 )(UploadImage);

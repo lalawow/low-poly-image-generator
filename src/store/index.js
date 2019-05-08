@@ -17,7 +17,8 @@ const initValues = {
     },
     mode: "triangles",
     imageInfo: initImage,
-    imageVersion: new Date()
+    imageVersion: new Date(),
+    render: false
 };
 
 const store = createStore(reducer, initValues,

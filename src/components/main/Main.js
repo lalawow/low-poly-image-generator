@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from "react-redux";
-import { getSetting, getImage, getImageVersion, getMode } from "@/store/selectors";
+import { renderControl } from "@/store/actions";
+import { getSetting, getImage, getImageVersion, getMode, getRenderSignal } from "@/store/selectors";
 import { Button } from "antd"
 
 import drawTriangles from "./drawTriangles"
@@ -43,22 +44,29 @@ class Main extends Component {
 
     componentDidMount() {
         this.canvas = document.getElementById('image-canvas')
-        this.prepareImg()
+        //this.prepareImg()
+
     }
 
     componentDidUpdate() {
-        this.prepareImg()
+
     }
 
     shouldComponentUpdate(nextProps, nextState) {
-        if (this.props.mode !== nextProps.mode) return true
-        else if (this.props.setting !== nextProps.setting) return true
-        if (this.props.imageVersion !== nextProps.imageVersion) return true
-        if (this.state !== nextState) return true
+        // if (this.props.mode !== nextProps.mode) return true
+        // else if (this.props.setting !== nextProps.setting) return true
+        // if (this.props.imageVersion !== nextProps.imageVersion) return true
+        // if (this.state !== nextState) return true
+        console.log("render", nextProps.renderSignal)
+        if (nextProps.renderSignal) {
+            const _this = this
+            setTimeout(function () { _this.prepareImg() }, 250)
+        }
         return false
     }
 
     prepareImg = (code) => {
+        console.log("start draw")
         if (this.props.imageInfo !== this.currentImageInfo) {
             this.img = new Image();   // Create new img element
             this.img.addEventListener('load', () => {
@@ -67,6 +75,7 @@ class Main extends Component {
             this.img.src = this.props.imageInfo; // Set source path
             this.currentImageInfo = this.props.imageInfo
         } else { this.drawCanvas(this.img) }
+        this.props.renderControl(false)
     }
     render() {
         return (
@@ -85,11 +94,12 @@ function mapStateToProps(state) {
         mode: getMode(state),
         setting: getSetting(state),
         imageInfo: getImage(state),
-        imageVersion: getImageVersion(state)
+        imageVersion: getImageVersion(state),
+        renderSignal: getRenderSignal(state)
     }
 }
 
 export default connect(
     mapStateToProps,
-    {}
+    { renderControl }
 )(Main);

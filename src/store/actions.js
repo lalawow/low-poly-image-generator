@@ -22,3 +22,9 @@ export const uploadImage = (imageInfo) => {
   };
 }
 
+export const renderControl = (action) => {
+  return {
+    type: ActionTypes.RENDER_CONTROL,
+    data: action
+  };
+}

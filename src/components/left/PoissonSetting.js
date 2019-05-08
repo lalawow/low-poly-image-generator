@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from "react-redux";
-import { setSetting } from "@/store/actions";
+import { setSetting, renderControl } from "@/store/actions";
 import { getSetting } from "@/store/selectors";
 import { Slider, Switch } from 'antd';
 import UploadImage from "@/components/left/UploadImage"
@@ -11,7 +11,13 @@ class PoissonSetting extends Component {
     // }
 
     handleChange = (type, value) => {
+        console.log("change", type, value)
         this.props.setSetting({ type, value })
+        this.props.renderControl(true)
+    }
+
+    componentDidUpdate() {
+        this.props.renderControl(true)
     }
 
     render() {
@@ -21,11 +27,11 @@ class PoissonSetting extends Component {
                 <UploadImage></UploadImage>
                 <div className="setting-item">
                     <h4>Dot Space</h4>
-                    <Slider defaultValue={this.props.setting.space} min={0} max={20} onChange={this.handleChange.bind(this, "space")} onAfterChange={this.handleChange.bind(this, "space")} />
+                    <Slider defaultValue={this.props.setting.space} min={0} max={20} onAfterChange={this.handleChange.bind(this, "space")} />
                 </div>
                 <div className="setting-item">
                     <h4>Dot Size</h4>
-                    <Slider defaultValue={this.props.setting.size} min={1} max={20} onChange={this.handleChange.bind(this, "size")} onAfterChange={this.handleChange.bind(this, "size")} />
+                    <Slider defaultValue={this.props.setting.size} min={1} max={20} onAfterChange={this.handleChange.bind(this, "size")} />
                 </div>
                 <div className="setting-item">
                     <h4>Fill Dots</h4>
@@ -48,5 +54,5 @@ function mapStateToProps(state) {
 
 export default connect(
     mapStateToProps,
-    { setSetting }
+    { setSetting, renderControl }
 )(PoissonSetting);
