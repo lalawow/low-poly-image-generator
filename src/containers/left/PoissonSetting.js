@@ -13,17 +13,11 @@ import UploadImage from "../../components/upload-image"
 })
 export default class PoissonSetting extends Component {
     handleChange = (type, value) => {
-        console.log("change", type, value)
         this.props.dispatch(setSetting({ type, value }))
         this.props.dispatch(renderControl(true))
     }
 
-    // componentDidUpdate() {
-    //     this.props.renderControl(true)
-    // }
-
     render() {
-        //console.log(this.props.setSetting)
         const { space, size, filled, stroke } = this.props.setting
         return (
             <div>

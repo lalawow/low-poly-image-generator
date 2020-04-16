@@ -27,10 +27,10 @@ const getColor = (ctx, triangle) => {
 }
 
 const getGrayscale = (color) => {
-    //console.log(color)
     let newColor = parseInt((color[0] * 299 + color[1] * 587 + color[2] * 114 + 500) / 1000)
     return [newColor, newColor, newColor, color[3]]
 }
+
 const drawTriangles = (ctx, img, amount, accuracy, width, height, grayscale) => {
     ctx.drawImage(img, 0, 0, width, height);
     const sobelImageData = Sobel(ctx.getImageData(0, 0, width, height)).toImageData();
@@ -48,7 +48,6 @@ const drawTriangles = (ctx, img, amount, accuracy, width, height, grayscale) => 
     if (grayscale) {
         fillGrayscale(ctx, width, height)
     }
-    console.log("draw done!" )
 }
 
 const drawOneTriangle = (ctx, triangle, color) => {
@@ -65,7 +64,6 @@ const drawOneTriangle = (ctx, triangle, color) => {
 
 const fillGrayscale = (ctx, width, height) => {
     const imageData = ctx.getImageData(0, 0, width, height).data
-    console.log(imageData.length)
     for (let i = 0; i < height; i++) {
         for (let j = 0; j < width; j++) {
             const pointIndex = (i * width + j) * 4

@@ -13,7 +13,6 @@ export default class UploadImage extends Component {
             multiple: false,
             action: '',
             beforeUpload: (file) => {
-                console.log("get file", file)
                 this.props.dispatch(uploadImage(URL.createObjectURL(file)))
                 this.props.dispatch(renderControl(true))
                 return false
@@ -21,7 +20,7 @@ export default class UploadImage extends Component {
             onChange(info) {
                 const status = info.file.status;
                 if (status !== 'uploading') {
-                    console.log(info.file, info.fileList);
+                    // console.log(info.file, info.fileList);
                 }
                 if (status === 'done') {
                     message.success(`${info.file.name} file uploaded successfully.`);

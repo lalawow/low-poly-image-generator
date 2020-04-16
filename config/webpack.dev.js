@@ -13,7 +13,6 @@ const publicUrl = isEnvProduction
   ? publicPath.slice(0, -1)
   : isEnvDevelopment && '';
 const env = getClientEnvironment(publicUrl);
-console.log("ENV show", env)
 
 const smp = new SpeedMeasurePlugin();
 module.exports = {

@@ -56,7 +56,6 @@ export default class Main extends Component {
   componentDidMount() {
     this.canvas = document.getElementById('image-canvas')
     this.prepareImg()
-
   }
 
   componentDidUpdate() {
@@ -64,7 +63,6 @@ export default class Main extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    console.log("render", nextProps.renderSignal)
     if (nextProps.renderSignal) {
       const _this = this
       setTimeout(function () { _this.prepareImg() }, 250)
@@ -73,7 +71,6 @@ export default class Main extends Component {
   }
 
   prepareImg = (code) => {
-    console.log("start draw")
     if (this.props.imageInfo !== this.currentImageInfo) {
       this.img = new Image();   // Create new img element
       this.img.addEventListener('load', () => {
@@ -91,7 +88,7 @@ export default class Main extends Component {
     const { renderSignal } = this.props
     return (
       <MainBox>
-        {renderSignal && <Spin />}
+        {renderSignal && <Spin tip="Rendering..." />}
         <canvas id="image-canvas" width={canvasSetting.width} height={canvasSetting.height} className={renderSignal ? "hide-canvas" : ""}></canvas>
         <div className="export-btn"><a id="download" download="triangle.png" href="..">
           <Button type="primary" ghost shape="round" icon="download">EXPORT</Button>

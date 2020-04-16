@@ -22,7 +22,6 @@
 
 function env(name, init) {
   const key = `REACT_APP_${name.toUpperCase()}`;
-  console.log("process", process.env)
   const buildtimeValue = process && process.env && process.env[key];
 
   const value = buildtimeValue || init;
