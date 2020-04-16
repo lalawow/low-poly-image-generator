@@ -1,6 +1,4 @@
 import React from 'react'
-import { withRouter } from 'react-router-dom'
-import { Switch, Route, Redirect } from 'react-router-dom'
 import Home from "./containers/home"
 import { TITLE } from "./config"
 
@@ -10,13 +8,8 @@ class App extends React.Component {
     render() {
         document.title = TITLE
         return (
-            <div>
-                <Switch>
-                    <Route path="/home" component={Home}></Route>
-                    <Redirect to="/home"></Redirect>
-                </Switch>
-            </div>
+            <Home></Home>
         )
     }
 }
-export default withRouter(App)
+export default App

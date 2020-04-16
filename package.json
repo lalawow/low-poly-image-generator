@@ -1,6 +1,6 @@
 {
-    "name": "webpack",
-    "version": "1.0.0",
+    "name": "Low-Poly Image Generator",
+    "version": "0.3.0",
     "main": "index.js",
     "license": "MIT",
     "devDependencies": {
@@ -58,15 +58,11 @@
     "dependencies": {
         "@babel/plugin-syntax-dynamic-import": "^7.2.0",
         "antd": "^3.15.1",
-        "antd-mobile": "^2.2.13",
-        "axios": "^0.18.0",
         "better-scroll": "^1.15.2",
+        "delaunator": "^4.0.1",
         "hard-source-webpack-plugin": "^0.13.1",
         "lodash": "^4.17.11",
-        "mockjs": "^1.0.1-beta3",
         "moment": "^2.24.0",
-        "money": "^0.2.0",
-        "pubsub-js": "^1.7.0",
         "react": "^16.8.6",
         "react-beautiful-dnd": "^12.2.0",
         "react-dom": "^16.8.6",
@@ -85,6 +81,7 @@
         "redux-devtools-extension": "^2.13.8",
         "redux-saga": "^1.1.1",
         "redux-thunk": "^2.3.0",
+        "sobel": "^0.0.11",
         "styled-components": "^4.3.2"
     },
     "theme": {

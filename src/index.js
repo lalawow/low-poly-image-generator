@@ -5,7 +5,7 @@ import store from './store'
 import { HashRouter, BrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
 // import 'antd/dist/antd.css';
-import './mock'
+// import './mock'
 
 ReactDOM.render(
     <HashRouter>

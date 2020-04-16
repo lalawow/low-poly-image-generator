@@ -21,13 +21,12 @@ module.exports = {
     app: [
       "babel-polyfill",
       "./src/index.js",
-      "./src/containers/home/index.js",
     ],
     vendor: ["react", "better-scroll", "react-redux", "react-lazyload"]
   },
   output: {
     filename: "[name].[hash:8].js",
-    path: resolve(__dirname, "../build")
+    path: resolve(__dirname, "../build"),
   },
   module: {
     rules: [
@@ -132,11 +131,11 @@ module.exports = {
   ],
   mode: "development",
   devServer: {
-    contentBase: "../build",
+    contentBase: resolve(__dirname, "../public"),
     open: true,
     port: 5000,
     hot: true,
-    host: "0.0.0.0"
+    host: "0.0.0.0",
   },
   resolve: {
     extensions: [".js", ".json", ".jsx"]

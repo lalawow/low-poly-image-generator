@@ -24,7 +24,7 @@ const env = getClientEnvironment(publicUrl);
 
 module.exports = {
   entry: {
-    app: ['babel-polyfill', './src/index.js', './src/containers/home/index.js'],
+    app: ['babel-polyfill', './src/index.js'],
     vendor: ['react']
   },
   output: {

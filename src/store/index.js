@@ -1,13 +1,28 @@
 import { createStore } from 'redux';
 import reducer from './reducer.js';
 
-import { DefaultShowCurrency } from "../constants"
-import { getItem} from "../lib/localStorageActions"
+const initImage = "/images/bird-01.jpg"
 
 const initValues = {
-  currencyList: getItem("currencyList") || DefaultShowCurrency,
+    triangles: {
+        accuracy: 75,
+        points: 2000,
+        grayscale: false
+    },
+    poissons: {
+        space: 5,
+        size: 3,
+        filled: false,
+        stroke: true
+    },
+    mode: "triangles",
+    imageInfo: initImage,
+    imageVersion: new Date(),
+    render: false
 };
 
-const store = createStore(reducer, initValues, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+const store = createStore(reducer, initValues,
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
 
 export default store;

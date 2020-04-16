@@ -1,6 +1,9 @@
-import { pull } from "lodash"
-import { AllCurrencyNames } from "../constants"
+export const getSetting = (store) => store[store.mode]
 
-export const getCurrencyList = store => store.currencyList
+export const getMode = store => store.mode
 
-export const getSelectableList = store => [...pull(AllCurrencyNames, store.currencyList)]
+export const getImage = store => store.imageInfo
+
+export const getImageVersion = store => store.imageVersion
+
+export const getRenderSignal = store => store.render

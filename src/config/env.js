@@ -24,9 +24,8 @@ function env(name, init) {
   const key = `REACT_APP_${name.toUpperCase()}`;
   console.log("process", process.env)
   const buildtimeValue = process && process.env && process.env[key];
-  const runtimeValue = window && window._36node && window._36node[key];
 
-  const value = runtimeValue || buildtimeValue || init;
+  const value = buildtimeValue || init;
   if (value === undefined) {
     throw new Error(`environment ${name} is missing`);
   }
@@ -41,6 +40,6 @@ export const CORE_BASE = env(
 
 export const TITLE = env(
   "TITLE",
-  "Currency Converter"
+  "Low-Poly Image Generator"
 );
 
