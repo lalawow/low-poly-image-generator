@@ -2,16 +2,13 @@ import React, { Component } from 'react'
 import styled from "styled-components"
 import { Icon } from 'antd'
 
-class Top extends Component {
-  render() {
-    return (
-      <Topbox>
-        <div className="app-title">Low-Poly Image Generator</div>
-        <div className="app-top-menu"><a href="https://github.com/lalawow/low-poly-image-generator" target="_blank" rel="noopener noreferrer" >About&nbsp; &nbsp; <Icon type="github" /></a></div>
-      </Topbox>
-    );
-  }
-}
+const Top = () => (
+  <Topbox>
+    <div className="app-title">Low-Poly Image Generator</div>
+    <div className="app-top-menu"><a href="https://github.com/lalawow/low-poly-image-generator" target="_blank" rel="noopener noreferrer" >About&nbsp; &nbsp; <Icon type="github" /></a></div>
+  </Topbox>
+);
+
 
 export default Top
 

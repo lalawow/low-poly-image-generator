@@ -6,29 +6,25 @@ import Left from "./left"
 import Main from "./main"
 
 const { Header, Sider } = Layout;
-class Home extends React.PureComponent {
 
-  render() {
-    return (
-      <FullpageBox>
-        <Layout>
-          <Header className="app-header">
-            <Top />
-          </Header>
-          <Layout>
-            <Sider className="app-sider" width="300" style={{
-              background: "#fff"
-            }}>
-              <Left />
-            </Sider>
-            <Layout style={{ padding: '0 24px 24px' }}>
-              <Main />
-            </Layout>
-          </Layout>
-        </Layout >
-      </FullpageBox>)
-  }
-}
+const Home = () => (
+  <FullpageBox>
+    <Layout>
+      <Header className="app-header">
+        <Top />
+      </Header>
+      <Layout>
+        <Sider className="app-sider" width="300" style={{
+          background: "#fff"
+        }}>
+          <Left />
+        </Sider>
+        <Layout style={{ padding: '0 24px 24px' }}>
+          <Main />
+        </Layout>
+      </Layout>
+    </Layout >
+  </FullpageBox>)
 
 export default Home
 
