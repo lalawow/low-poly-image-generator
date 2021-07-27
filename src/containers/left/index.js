@@ -1,39 +1,36 @@
-import React, { Component } from 'react'
+import React from 'react'
 import styled from "styled-components"
 import { Tabs } from 'antd';
 import TriangleSetting from "./TriangleSetting"
 import PoissonSetting from "./PoissonSetting"
-import { connect } from "react-redux";
-import { setMode } from "../../store/actions";
+import { useDispatch } from "react-redux";
+import { setMode, renderControl} from "../../store/actions";
 import {imageModes} from "../../lib/constants"
 
 const TabPane = Tabs.TabPane;
+const Left = ()=>{
+  const dispatch = useDispatch()
 
-@connect()
-export default class Left extends Component {
-  handleChange = (key) => {
-    this.props.dispatch(setMode({ mode: key }))
+  const handleChange= (key)=>{
+    dispatch(setMode({ mode: key }))
+    dispatch(renderControl(true));
   }
-
-  render() {
-    return (
-      <AppLeft>
-        <Tabs defaultActiveKey={imageModes.Triangles} onChange={this.handleChange}>
-          <TabPane tab="Triangles" key={imageModes.Triangles}>
-            <TabContent>
-              <TriangleSetting />
-            </TabContent>
-          </TabPane>
-          <TabPane tab="Poisson Dots" key={imageModes.Poissons}>
-            <TabContent>
-              <PoissonSetting />
-            </TabContent>
-          </TabPane>
-        </Tabs>
-      </AppLeft>
-    );
-  }
+  return (<AppLeft>
+    <Tabs defaultActiveKey={imageModes.Triangles} onChange={handleChange}>
+      <TabPane tab="Triangles" key={imageModes.Triangles}>
+        <TabContent>
+          <TriangleSetting />
+        </TabContent>
+      </TabPane>
+      <TabPane tab="Poisson Dots" key={imageModes.Poissons}>
+        <TabContent>
+          <PoissonSetting />
+        </TabContent>
+      </TabPane>
+    </Tabs>
+  </AppLeft>)
 }
+export default Left
 
 const AppLeft = styled.div`
 
