@@ -4,6 +4,7 @@ import styled from "styled-components"
 import { renderControl } from "../store/actions";
 import { getSetting, getImage, getImageVersion, getMode, getRenderSignal } from "../store/selectors";
 import { Button, Spin } from "antd"
+import { imageModes } from "../lib/constants"
 
 import drawTriangles from "../lib/drawTriangles"
 import drawPoissonDisc from "../lib/drawPoissonDisc"
@@ -47,8 +48,8 @@ export default class Main extends Component {
       canvas.width = maxWidth
     }
     let ctx = canvas.getContext('2d')
-    if (this.props.mode === "triangles") drawTriangles(ctx, img, this.props.setting.points, this.props.setting.accuracy, canvas.width, canvas.height, this.props.setting.grayscale)
-    if (this.props.mode === "poissons") drawPoissonDisc(ctx, img, this.props.setting.space, this.props.setting.size, canvas.width, canvas.height, this.props.setting.filled, this.props.setting.stroke)
+    if (this.props.mode === imageModes.Triangles) drawTriangles(ctx, img, this.props.setting.points, this.props.setting.accuracy, canvas.width, canvas.height, this.props.setting.grayscale)
+    if (this.props.mode === imageModes.Poissons) drawPoissonDisc(ctx, img, this.props.setting.space, this.props.setting.size, canvas.width, canvas.height, this.props.setting.filled, this.props.setting.stroke)
     setTimeout(download(), 500)
     this.props.dispatch(renderControl(false))
   }

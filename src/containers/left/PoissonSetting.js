@@ -3,10 +3,11 @@ import { shallowEqual, useSelector, useDispatch } from "react-redux";
 import { setSetting, renderControl } from "../../store/actions";
 import { Slider, Switch } from 'antd';
 import UploadImage from "../../components/upload-image"
+import {imageModes} from '../../lib/constants'
 
 
 const PoissonSetting = ()=>{
-    const imgSetting = useSelector((store) => store[store.mode],shallowEqual)
+    const imgSetting = useSelector((store) => store[imageModes.Poissons],shallowEqual)
     const { space, size, filled, stroke } = imgSetting;
     const dispatch = useDispatch()
 

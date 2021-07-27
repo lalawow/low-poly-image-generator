@@ -5,6 +5,7 @@ import TriangleSetting from "./TriangleSetting"
 import PoissonSetting from "./PoissonSetting"
 import { connect } from "react-redux";
 import { setMode } from "../../store/actions";
+import {imageModes} from "../../lib/constants"
 
 const TabPane = Tabs.TabPane;
 
@@ -17,13 +18,13 @@ export default class Left extends Component {
   render() {
     return (
       <AppLeft>
-        <Tabs defaultActiveKey="triangles" onChange={this.handleChange}>
-          <TabPane tab="Triangles" key="triangles">
+        <Tabs defaultActiveKey={imageModes.Triangles} onChange={this.handleChange}>
+          <TabPane tab="Triangles" key={imageModes.Triangles}>
             <TabContent>
               <TriangleSetting />
             </TabContent>
           </TabPane>
-          <TabPane tab="Poisson Dots" key="poissons">
+          <TabPane tab="Poisson Dots" key={imageModes.Poissons}>
             <TabContent>
               <PoissonSetting />
             </TabContent>

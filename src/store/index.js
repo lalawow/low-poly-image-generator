@@ -1,21 +1,22 @@
 import { createStore } from 'redux';
 import reducer from './reducer.js';
+import { imageModes } from '../lib/constants'
 
 const initImage = "/images/bird-01.jpg"
 
 const initValues = {
-    triangles: {
+    Triangles: {
         accuracy: 75,
         points: 2000,
         grayscale: false
     },
-    poissons: {
+    Poissons: {
         space: 5,
         size: 3,
         filled: false,
         stroke: true
     },
-    mode: "triangles",
+    mode: imageModes.Triangles,
     imageInfo: initImage,
     imageVersion: new Date(),
     render: true
