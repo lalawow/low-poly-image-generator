@@ -1,5 +1,6 @@
 import Delaunator from 'delaunator';
 import Sobel from 'sobel'
+import {rgbaToHex} from './index'
 
 const getRandomPoints = (amount, accuracy, sobelPoints, width, height) => {
     let res = []
@@ -23,8 +24,7 @@ const getColor = (ctx, triangle) => {
         y: (triangle[0][1] + triangle[1][1] + triangle[2][1]) / 3
     }
     const color = ctx.getImageData(parseInt(point.x), parseInt(point.y), 1, 1).data;
-    console.log("color",color)
-    return color
+    return rgbaToHex(color)
 }
 
 const getGrayscale = (color) => {
@@ -48,13 +48,11 @@ const drawTriangles = ({g,img,imgSetting,canvasSetting}) => {
     const triangles = delaunay.triangles
     const n = triangles.length / 3
     g.clear()
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < n; i++) {
         const triangle = [points[triangles[i * 3]], points[triangles[i * 3 + 1]], points[triangles[i * 3 + 2]]]
         const color = getColor(ctx, triangle)
-        console.log("triangle",triangle)
-        console.log("color",color)
         // let colorStyle = grayscale ? getGrayscale(color) : color
-        // drawOneTriangle(g, triangle, color)
+        drawOneTriangle(g, triangle, color)
     }
     // if (grayscale) {
     //     fillGrayscale(ctx, width, height)

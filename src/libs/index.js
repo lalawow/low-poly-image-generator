@@ -12,6 +12,14 @@ import moment from "moment";
 import history from "./history";
 import localStorageActions from "./localStorageActions"
 
+export const rgbaToHex = color=>{
+ const oneColorHex = c=>{
+   const hex = c.toString(16)
+   return hex.length===1?`0${hex}`:hex
+ }
+ return `0x${oneColorHex(color[0])}${oneColorHex(color[1])}${oneColorHex(color[2])}`
+}
+
 /**
  * add rounding function to Number class
  * @param {Number} number 需要定义精度的数
