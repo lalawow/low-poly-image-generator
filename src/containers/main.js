@@ -1,14 +1,14 @@
-import React, { useCallback,useEffect } from 'react'
+import React, { useCallback,useEffect,useState } from 'react'
 import { useSelector, shallowEqual, useDispatch } from "react-redux";
 import styled from "styled-components"
 import { Stage, Graphics } from '@inlet/react-pixi'
 import { renderControl } from "../store/actions";
 import { getSetting, getImage, getImageVersion, getMode, getRenderSignal } from "../store/selectors";
 import { Button, Spin } from "antd"
-import { imageModes } from "../lib/constants"
+import { imageModes } from "../libs/constants"
 
-import drawTriangles from "../lib/drawTriangles"
-import drawPoissonDisc from "../lib/drawPoissonDisc"
+import drawTriangles from "../libs/drawTriangles"
+import drawPoissonDisc from "../libs/drawPoissonDisc"
 
 const download = () => {
   const downloadEl = document.getElementById("download");
@@ -30,28 +30,32 @@ const Main = () => {
   const imageInfo = useSelector(getImage)
   const imageVersion = useSelector(getImageVersion)
   const dispatch = useDispatch()
-  let img
+  const [img,setImg]=useState(null)
 
   const draw = useCallback((g) => {
     if (renderSignal) {
-      const colors = [0xff0000, 0x00ff00, 0x0000ff]
-      g.clear();
-      g.beginFill(colors[parseInt(Math.random() * colors.length)]);
-      g.drawRect(50, 100, 100, 120);
-      g.endFill();
+      if (img && mode ===imageModes.Triangles) {
+        drawTriangles({g,img,imgSetting:setting,canvasSetting})
+      }
+      if (mode===imageModes.Poissons) {
+        // drawPoissonDisc({g,img,imgSetting:setting,canvasSetting})
+        const colors = [0xff0000, 0x00ff00, 0x0000ff]
+        g.clear();
+        g.beginFill(colors[parseInt(Math.random() * colors.length)]);
+        g.drawRect(50, 100, 100, 120);
+        g.endFill();
+      }
       dispatch(renderControl(false))
     }
   }, [renderSignal]);
 
-  const setCanvas = () => {
-    // const canvas = this.canvas
-
+  const setCanvas = (image) => {
     const maxWidth = 800, maxHeight = 600
-    if (maxWidth / img.width * img.height > maxHeight) {
-      canvasSetting.width = maxHeight / img.height * img.width
+    if (maxWidth / image.width * image.height > maxHeight) {
+      canvasSetting.width = maxHeight / image.height * image.width
       canvasSetting.height = maxHeight
     } else {
-      canvasSetting.height = maxWidth / img.width * img.height
+      canvasSetting.height = maxWidth / image.width * image.height
       canvasSetting.width = maxWidth
     }
     // let ctx = canvas.getContext('2d')
@@ -60,20 +64,23 @@ const Main = () => {
     // setTimeout(download(), 500)
     // this.props.dispatch(renderControl(false))
   }
-  useEffect(() => {
-    img = new Image();   // Create new img element
-    img.addEventListener('load', () => {
-      // setTimeout(function () { _this.drawCanvas(_this.img) }, 250)
-      setCanvas()
+  useEffect(async () => {
+    const image = new Image()
+
+    image.addEventListener('load', async () => {
+      setCanvas(image)
+      await setImg(image)
       dispatch(renderControl(true))
     }, false);
-    img.src = imageInfo;
+    image.src = imageInfo;
   }, [imageInfo])
 
 
   return (
     <MainBox>
-      <Stage width={canvasSetting.width} height={canvasSetting.height} options={{ backgroundColor: 0x111111 }}><Graphics draw={draw} /></Stage>
+      <Stage width={canvasSetting.width} height={canvasSetting.height} options={{ backgroundColor: 0x111111 }}>
+        <Graphics draw={draw} />
+      </Stage>
       <div className="export-btn"><a id="download" download="triangle.png" href="..">
         <Button type="primary" ghost shape="round" icon="download">EXPORT</Button>
       </a></div>

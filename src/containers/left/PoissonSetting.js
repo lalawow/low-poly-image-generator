@@ -3,7 +3,7 @@ import { shallowEqual, useSelector, useDispatch } from "react-redux";
 import { setSetting, renderControl } from "../../store/actions";
 import { Slider, Switch } from 'antd';
 import UploadImage from "../../components/upload-image"
-import {imageModes} from '../../lib/constants'
+import {imageModes} from '../../libs/constants'
 
 
 const PoissonSetting = ()=>{

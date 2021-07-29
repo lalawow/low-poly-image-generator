@@ -23,6 +23,7 @@ const getColor = (ctx, triangle) => {
         y: (triangle[0][1] + triangle[1][1] + triangle[2][1]) / 3
     }
     const color = ctx.getImageData(parseInt(point.x), parseInt(point.y), 1, 1).data;
+    console.log("color",color)
     return color
 }
 
@@ -31,7 +32,14 @@ const getGrayscale = (color) => {
     return [newColor, newColor, newColor, color[3]]
 }
 
-const drawTriangles = (ctx, img, amount, accuracy, width, height, grayscale) => {
+const drawTriangles = ({g,img,imgSetting,canvasSetting}) => {
+    const {points:amount,accuracy,grayscale}=imgSetting
+    const {width,height}=canvasSetting
+    const canvas = document.createElement("canvas");
+    canvas.width=width
+    canvas.height=height
+    const ctx = canvas.getContext('2d')
+    console.log(typeof(img))
     ctx.drawImage(img, 0, 0, width, height);
     const sobelImageData = Sobel(ctx.getImageData(0, 0, width, height)).toImageData();
     const sobelPoints = getSobelPoints(sobelImageData)
@@ -39,27 +47,28 @@ const drawTriangles = (ctx, img, amount, accuracy, width, height, grayscale) => 
     const delaunay = Delaunator.from(points);
     const triangles = delaunay.triangles
     const n = triangles.length / 3
-    for (let i = 0; i < n; i++) {
+    g.clear()
+    for (let i = 0; i < 10; i++) {
         const triangle = [points[triangles[i * 3]], points[triangles[i * 3 + 1]], points[triangles[i * 3 + 2]]]
-        let color = getColor(ctx, triangle)
-        let colorStyle = grayscale ? getGrayscale(color) : color
-        drawOneTriangle(ctx, triangle, colorStyle)
+        const color = getColor(ctx, triangle)
+        console.log("triangle",triangle)
+        console.log("color",color)
+        // let colorStyle = grayscale ? getGrayscale(color) : color
+        // drawOneTriangle(g, triangle, color)
     }
-    if (grayscale) {
-        fillGrayscale(ctx, width, height)
-    }
+    // if (grayscale) {
+    //     fillGrayscale(ctx, width, height)
+    // }
 }
 
-const drawOneTriangle = (ctx, triangle, color) => {
-    ctx.beginPath();
-    ctx.moveTo(...triangle[0]);
-    ctx.lineTo(...triangle[1]);
-    ctx.lineTo(...triangle[2]);
-    ctx.lineTo(...triangle[0]);
-    ctx.fillStyle = 'rgb(' + color + ')'
-    ctx.strokeStyle = 'rgb(' + color + ')'
-    ctx.fill()
-    ctx.stroke()
+const drawOneTriangle = (g, triangle, color) => {
+    g.beginFill(color)
+    g.lineStyle(0)
+    g.moveTo(...triangle[0])
+    g.lineTo(...triangle[1])
+    g.lineTo(...triangle[2])
+    g.lineTo(...triangle[0])
+    g.endFill()
 }
 
 const fillGrayscale = (ctx, width, height) => {

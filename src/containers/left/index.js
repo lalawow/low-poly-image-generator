@@ -5,7 +5,7 @@ import TriangleSetting from "./TriangleSetting"
 import PoissonSetting from "./PoissonSetting"
 import { useDispatch } from "react-redux";
 import { setMode, renderControl} from "../../store/actions";
-import {imageModes} from "../../lib/constants"
+import {imageModes} from "../../libs/constants"
 
 const TabPane = Tabs.TabPane;
 const Left = ()=>{
